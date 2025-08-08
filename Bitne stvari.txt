@@ -1,0 +1,65 @@
+1. Chapter - Machine Learning Basics
+What is it? Learning from data Example : Learn to classify the spam mails
+Traditional approach would have to write rules, ML approach would automatically learn which words and phrases are good predictors of spam by detecting patterns
+Examples : Detecting tumours, Automatically classifying news articles, Automatically flagging offensive comments on discussion forums, Fraud detection etc...
+
+Types of Supervision : 
+
+Supervised (Regression, Classification)
+
+Unsupervised (Clustering, Dimensionality Reduction, Anomaly Detection, Novelty detection, Association rule learning)
+
+Semi-supervised (clustering algorithm may be used to group similar instances together, and then every unlabeled instance can be labeled with the most common label in its cluster, once the whole dataset is labeled, it is possible to use any supervised learning algo)
+
+Self-supervised - Masked images are used as the inputs, the original images are used as the labels... Similar to Audio denoising spectogram
+
+Reinforcement learning - Agent, Environment, Select and Perform actions, and get rewards in return or penalties
+
+Tips
+1. Often it's better to firstly do the dimensionality reduction before you feed it to another machine learning algo such as supervised learning algo
+2. When doing the novelity detection (is the new instance different from all of the instances in the training set), the training set must be very clean.
+
+
+Offline Learning vs Online Learning
+
+Learns offline and then when going into production, stops learning and only applies what it has learned
+It can be automated fairly easily, if we want to learn from new data we should retrain the model using the new data + the old but is bad on the resources because we are training it from scratch
+
+Learns online as its still learning when going into production, which is fast and cheap, can learn about new data on the fly
+
+Instance based vs Model based
+
+How they generalize?
+
+Instance based : Using a measure of similarity between already known instances and new instances known
+
+Model based : Build a model of these examples and then use that model to make predictions using utility function or cost function
+
+Training a model means running an algorithm to find the model parameters that will make it best fit the training data 
+
+
+Insufficient Quantity of Training Data, Nonrepresentative Training data (Sampling bias), Data full of errors, outliers and Nonrepresentative, Irrelevant Features (Feature selection - selecting the most important features and Feature extraction - combining existing features to produce a more useful one)
+
+Overfitting the data - if one taxi driver rips me off, i would overgeneralize and conclude that every taxi driver would rip me off - Model performs well on the training data, but it does not generalize well
+
+Overfitting happends when the model is too complex relative to the amount and noisiness of the training data
+    - Simplify the model by selecting one with fewer parameters, by reducing the number of attributes in the training data or by constraining the model
+    - Gather more training data
+    - Reduce the noise in the training data
+Constraining the model to make it simpler and reduce the risk of overfitting is called regularization
+Goal : Find the right balance between fitting the training data perfectly and keeping the model simple enough to ensure that it will generalize well
+
+Underfitting the data - Occurs when a model is too simple to learn the underlying the structure of the data 
+    - Select a more powerful mode, with more parameters
+    - Feed better features to the learning algorithm (Feature engineering)
+    - Reduce the constraints on the model (by reducing the regularization hyperparameter)
+
+Testing and Validating - classic training and testing split 
+If training accuracy is high and test acc is low - that means the model is overfitting
+We do not always need 20% split, depends on how many instances we have overall
+
+Hyperparameter tuning and Model selection - Select the model that performs the best (has the best hyperparameters) on the validation set.
+Using the cross-validation, using many small validation sets
+
+Tips : Both validation and test set must be as representative as possible of the data you expect in the production.
+No free Lunch theorem - The only way to know which model is best is to evaluate them all 
