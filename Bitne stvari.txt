@@ -63,3 +63,63 @@ Using the cross-validation, using many small validation sets
 
 Tips : Both validation and test set must be as representative as possible of the data you expect in the production.
 No free Lunch theorem - The only way to know which model is best is to evaluate them all 
+
+2. Chapter - End to end ML project
+
+1. Look at the big picture
+    What are we trying to solve? What task? Use the ML project checklist that is in this repo. What is the business objective
+    (Maybe the output of the model will be an input of another ML system etc...) Are there any already made up solutions
+
+    Pipelines : Sequence of data processing components
+
+    Determine what kind of training supervision the model will need : supervised, unsupervised, self suppervised etc...
+    Is it classification task or regression task? Should i use batch learning or online learning techniques.
+
+    If there is a lot of data, split batch learning work across multiple servers (using the MapReduce technique) or an online learning technique
+
+    Select a Performance Measure : For regression tasks - RMSE or MAE (mean absolute error used when there are many outlier distritcs)
+
+2. Get the data
+In typical situations i get the data from the relationa db or other common data store or a .csv file
+And then expect the data with .info() .describe() plot distributions ..
+When splitting to a train test split use stratify so that the algorithm isnt biased
+
+3. Explore and visualize the data to gain insights
+
+Look for correlation coefficient between every pair of attributes using the .scatter_matrix() but that only measures linear correlation 
+Also, if we combine the attributes to get the attributes with more meaning, there is maybe a possibility that it is good! Feature engineering
+
+4. Prepare the data for machine learning algorithms
+
+Cleaning the data, get rid of corrensponding distritcs, get rid of the whole attribute, set missing values to some value (zero, the mean, the median)
+
+There are also more powerful imputers (the object that handles the missing values) - KNNImputer and IterativeImputer
+
+OneHot encoder for categorical values - if the categorical attribute has a large number of possible cattegories then one-hot encoding will result in a large number of input features which will slow down training
+
+Feature Scaling - Some of the machine learning algo's do not perform well when the input numerical attributes have very different scales
+(min-max scaling and standardization) Do this only for the training data with fit and fit_transform and then use the transform for the new data, test set, validation set 
+Standardization is much less affected by outliers, also rethink about transforming the value with logarithm if it has a long and heavy tail
+Handle the heavy-tailed features - Logarithm or Bucketize
+
+Adding the features with cluster similarity
+
+Use the Pipeline so i can sequentialize the data transformation
+
+5. Select a model and train it
+Evaluate it with the Cross-validation From 10 pick 1 for validation and other 9 folds for training 
+6. Find-tune your model
+
+Grid-Search and Random-Search for tuning the hyperparameters and tell which parameters you want to tune and use the cross validations
+Grid-Searh - Every possible combination from my Search
+Random-Search - tries a random subset of combinations
+I can also do the feature scores (which features were contributing the most)
+7. Present your solution
+8. Launch, monitor and maintain your system
+Polish the code, write documentation and tests and deploy the model in the production env => Basic way save the best model, transfer the file to production env and load it
+If the model is used within the website (REST API)
+Deploy on the cloud Google Vertex AI. Save the model to Google Cloud Storage and then head over to Vertex AI and create a new model version pointing to that GCS file and thats it (it will handle anything loadbalancing, scaling etc...)
+Write the monitoring code
+
+Working with real data and not artificial datasets OpenML.org, Kaggle.com PapersWithCode.com 
+
